@@ -322,29 +322,29 @@
           </div>
 
           <div class="col-lg-6">
-            <form action="forms/contact.php" method="post" class="php-email-form">
+            <form action="" method="post" class="php-email-form">
               <div class="row gy-4">
 
                 <div class="col-md-6">
-                  <input type="text" name="name" class="form-control" placeholder="Seu Nome" required>
+                  <input type="text" name="from_name" id="from_name" class="form-control" placeholder="Seu Nome" required>
                 </div>
 
                 <div class="col-md-6 ">
-                  <input type="email" class="form-control" name="email" placeholder="Seu Email" required>
+                  <input type="email" class="form-control"name="email" id="email" placeholder="Seu Email" required>
                 </div>
 
                 <div class="col-md-12">
-                  <input type="text" class="form-control" name="subject" placeholder="Assunto" required>
+                  <input type="text" class="form-control" name="assunto" id="assunto" placeholder="Assunto" required>
                 </div>
 
                 <div class="col-md-12">
-                  <textarea class="form-control" name="message" rows="6" placeholder="Mensagem" required></textarea>
+                  <textarea class="form-control" name="message" id="message" rows="6" placeholder="Mensagem" required></textarea>
                 </div>
 
                 <div class="col-md-12 text-center">
                   <div class="loading">Carregando..</div>
                   <div class="error-message"></div>
-                  <div class="sent-message">Sua mensagem foi enviada com sucesso. Obrigado!</div>
+                  <div class="sent-message">Sua mensagem foi enviada com sucesso! Breve responderemos, Obrigado!</div>
 
                   <button type="submit">Enviar mensagem!</button>
                 </div>
@@ -425,10 +425,37 @@
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+<script type="text/javascript">
+  emailjs.init('4vUWQ0xiO0SWYJWZ6')
+</script>
+<script>
+    const form = document.querySelector(".php-email-form");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      emailjs.sendForm("service_fva4gku","template_ne03aah", this)
+        .then(function() {
+          form.querySelector(".loading").style.display = "none";
+          form.querySelector(".sent-message").style.display = "block";
+          form.reset();
+        }, function(error) {
+          form.querySelector(".loading").style.display = "none";
+          form.querySelector(".error-message").innerHTML = error.message;
+          form.querySelector(".error-message").style.display = "block";
+        });
+    });
+
+  </script>
+
+
+
 
 </body>
 
